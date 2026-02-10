@@ -157,19 +157,12 @@
         const yesBtn = document.getElementById('yesBtn');
         const heart = document.getElementById('mainHeart');
         
-        let moveCount = 0;
-        const maxMoves = 15; 
         let currentDistance = 150; 
 
         function runAway() {
-            if (moveCount >= maxMoves) {
-                noBtn.style.opacity = '0';
-                noBtn.style.pointerEvents = 'none';
-                setTimeout(() => noBtn.style.display = 'none', 300);
-                return;
-            }
+         
+            currentDistance += 20; 
 
-            currentDistance += 80; 
             const angle = Math.random() * 2 * Math.PI;
             
             let newX = noBtn.offsetLeft + Math.cos(angle) * currentDistance;
@@ -182,7 +175,6 @@
             noBtn.style.position = 'fixed';
             noBtn.style.left = `${newX}px`;
             noBtn.style.top = `${newY}px`;
-            moveCount++;
         }
 
         document.addEventListener('mousemove', (e) => {
@@ -190,6 +182,7 @@
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
             const distance = Math.hypot(e.clientX - centerX, e.clientY - centerY);
+            
             if (distance < 100) runAway();
         });
 
